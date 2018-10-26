@@ -1,4 +1,4 @@
-#LCBO 
+# LCBO 
 
 ## Usage
 There are two users with price preference profiles:
@@ -7,10 +7,10 @@ There are two users with price preference profiles:
 2) Grant
 
 
-##Development Environment
+## Development Environment
 The application was composed using Springboot using Maven2 as a build tool.
 
-###War file Generation
+### War file Generation
 
 _mvn package_
 
@@ -21,12 +21,12 @@ Running from the Command-Line
 _$ mvn spring-boot:run_
 
 
-##General Design
-###Services
+## General Design
+### Services
 
 There are two services:
 
-####_LCBOServiceImpl_
+#### _LCBOServiceImpl_
 (Missing Interfaces)
 
 This services purpose is to interact with the LCBO's Rest API.
@@ -34,7 +34,7 @@ This services purpose is to interact with the LCBO's Rest API.
 ####_UserProfileSearchService_
 This service is to deal with the User needs: profile and transformation of data formats.  Additionally it caches data to reduce the calls out to the LCBO's Rest server.
 
-###WineRequest
+### WineRequest
 This utility class is maintained in the session and governs the selection of wines.
 
 When this class is constructed it is populated with the wines that meet the criteria of the user.
