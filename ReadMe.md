@@ -31,7 +31,7 @@ There are two services:
 
 This services purpose is to interact with the LCBO's Rest API.
 
-####_UserProfileSearchService_
+#### _UserProfileSearchService_
 This service is to deal with the User needs: profile and transformation of data formats.  Additionally it caches data to reduce the calls out to the LCBO's Rest server.
 
 ### WineRequest
