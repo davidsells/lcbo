@@ -1,17 +1,21 @@
 package com.davidsells.models.selection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 public class WineRequest implements Serializable {
+    Logger logger = LoggerFactory.getLogger(WineRequest.class);
     private String user;
     private Map<String, List<Wine>> redWines;
     private Map<String, List<Wine>> whiteWines;
     private Integer redWineCount = 0;
     private Integer whiteWineCount = 0;
     private Integer numberOfWinesCount = 0;
-    private Float desiredRatio = new Float(0.75);
+    private final Double desiredRatio = new Double(0.75);
 
     public WineRequest(String user, Map<String, Map<String, List<Wine>>> wineTypeList) {
         redWines = wineTypeList.get("red");
@@ -26,17 +30,18 @@ public class WineRequest implements Serializable {
         } else if (numberOfWinesCount == 1) {
             result = "white";
         } else {
-            Float ratio = new Float(redWineCount / numberOfWinesCount);
-            if (Float.compare(ratio, desiredRatio) == 1) {
+            double ratio = (double)redWineCount / (double)numberOfWinesCount;
+            if (Double.compare(ratio, desiredRatio) == 1) {
                 result = "white";
             } else {
                 result = "red";
             }
+            logger.info(String.format("redCount: %d, numberOfWines: %d, ratio: %f type: %s",redWineCount,numberOfWinesCount,ratio,result));
         }
         return result;
     }
 
-    public Wine getNextWine(final Integer attempt) {
+    public Wine getNextWine(Integer attempt) {
         String type = typeOfNextWine();
         Map<String, List<Wine>> wineList;
         if (type.equals("red")) {
@@ -45,7 +50,12 @@ public class WineRequest implements Serializable {
             wineList = whiteWines;
         }
         Map.Entry<String, List<Wine>> entry = wineList.entrySet().iterator().next();
-        String key = entry.getKey();
+        if(entry.getValue().size() < attempt) {
+            String key = entry.getKey();
+            attempt = 0;
+            removeProducer(key);
+            entry = wineList.entrySet().iterator().next();
+        }
         return entry.getValue().get(attempt);
     }
 
