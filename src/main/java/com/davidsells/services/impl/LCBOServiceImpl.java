@@ -1,4 +1,4 @@
-package com.davidsells.services;
+package com.davidsells.services.impl;
 
 import com.davidsells.models.Inventory.Inventory;
 import com.davidsells.models.Inventory.InventoryResponse;
@@ -6,6 +6,7 @@ import com.davidsells.models.Product.Product;
 import com.davidsells.models.Product.ProductResponse;
 import com.davidsells.models.Store.Store;
 import com.davidsells.models.Store.StoreResponse;
+import com.davidsells.services.LCBOService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("LCBOService")
-public class LCBOServiceImpl {
+public class LCBOServiceImpl implements LCBOService {
     Logger logger = LoggerFactory.getLogger(LCBOServiceImpl.class);
 
     @Value("${LCBO.KEY:not set}")
@@ -32,6 +33,7 @@ public class LCBOServiceImpl {
 
 
 
+    @Override
     public List<Store> getStoreByAddress(String address) {
         List<Store> stores = null;
         try {
@@ -53,6 +55,7 @@ public class LCBOServiceImpl {
         return stores;
     }
 
+    @Override
     public Integer getInventoryOfProductAtStore(final Integer storeId, final Integer productId) {
         Inventory inventory = null;
         try {
@@ -78,6 +81,7 @@ public class LCBOServiceImpl {
     }
 
 
+    @Override
     public List<Product> getWinesAtStoreWithQuery(final Integer storeNumber, final String query) {
         List<Product> wines = null;
         try {

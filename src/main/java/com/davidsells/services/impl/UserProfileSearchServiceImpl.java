@@ -1,8 +1,10 @@
-package com.davidsells.services;
+package com.davidsells.services.impl;
 
 import com.davidsells.models.Product.Product;
 import com.davidsells.models.Store.Store;
 import com.davidsells.models.selection.Wine;
+import com.davidsells.services.LCBOService;
+import com.davidsells.services.UserProfileSearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class UserProfileSearchServiceImpl {
-    public enum INEQUALITY {GREATER, LESS}
+public class UserProfileSearchServiceImpl implements UserProfileSearchService {
 
 
     private Logger logger = LoggerFactory.getLogger(UserProfileSearchServiceImpl.class);
@@ -27,8 +28,9 @@ public class UserProfileSearchServiceImpl {
     private Integer storeNumber;
 
     @Autowired
-    private LCBOServiceImpl lcboService;
+    private LCBOService lcboService;
 
+    @Override
     public Map<String, Map<String, List<Wine>>> getWinesForUser(String userName) {
         PriceInequality priceInequality = userProfiles.get(userName.toLowerCase());
         Map<String, Map<String, List<Wine>>> selectedWines = new HashMap<>();
@@ -44,6 +46,7 @@ public class UserProfileSearchServiceImpl {
         return selectedWines;
     }
 
+    @Override
     public Integer getStoreNumber() {
         return storeNumber;
     }

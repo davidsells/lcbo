@@ -6,8 +6,8 @@ import java.util.Map;
 import com.davidsells.models.Product.Product;
 import com.davidsells.models.selection.Wine;
 import com.davidsells.models.selection.WineRequest;
-import com.davidsells.services.LCBOServiceImpl;
-import com.davidsells.services.UserProfileSearchServiceImpl;
+import com.davidsells.services.LCBOService;
+import com.davidsells.services.UserProfileSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -24,10 +24,10 @@ public class WelcomeController {
     private String message = "Hello World";
 
     @Autowired
-    private LCBOServiceImpl lcboService;
+    private LCBOService lcboService;
 
     @Autowired
-    private UserProfileSearchServiceImpl userProfileSearchService;
+    private UserProfileSearchService userProfileSearchService;
 
     @Autowired
     private HttpSession httpSession;
