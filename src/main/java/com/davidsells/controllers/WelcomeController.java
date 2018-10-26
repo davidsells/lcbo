@@ -41,8 +41,8 @@ public class WelcomeController {
     private final WineRequest retrieveOrCreateSessionObject(final String user) {
         String attributeName = user.trim()+"_winerequest";
         WineRequest wineRequest = (WineRequest) httpSession.getAttribute(attributeName);
-        //Hack
-        if (wineRequest == null ||(wineRequest.getRedWines()==null || wineRequest.getRedWines().size()==0) )  {
+
+        if (wineRequest == null )  {
             Map<String, Map<String, List<Wine>>> wines =  userProfileSearchService.getWinesForUser(user);
             wineRequest = new WineRequest(user,wines);
             httpSession.setAttribute(attributeName, wineRequest);

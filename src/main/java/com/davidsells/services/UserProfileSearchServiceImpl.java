@@ -104,10 +104,11 @@ public class UserProfileSearchServiceImpl {
         return result;
     }
 
-    private void retrieveWineStashOfStoreNumber(Integer storeNumber) {
+    private void retrieveWineStashOfStoreNumber(final Integer storeNumber) {
         final List<Product> whiteWineProducts = lcboService.getWinesAtStoreWithQuery(storeNumber, "white+wine");
         final List<Product> redWineProducts = lcboService.getWinesAtStoreWithQuery(storeNumber, "red+wine");
 
+        // Transform the retrieved Products into lower overhead Wine objects.
         redWines = redWineProducts.stream().map(wine -> {
             return extractWine(wine, "red");
         }).collect(Collectors.toList());
