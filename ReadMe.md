@@ -27,7 +27,6 @@ _$ mvn spring-boot:run_
 There are two services:
 
 #### _LCBOServiceImpl_
-(Missing Interfaces)
 
 This services purpose is to interact with the LCBO's Rest API.
 
@@ -51,3 +50,16 @@ This class is responsible for launcing the application.
 
 ### The Model directory
 This directory tree contains the supporting models for the application.
+
+## Docker Deployment
+
+A simple _Dockerfile_ was added for docker deployment into a tomcat environment.  To use this deployment follow these steps (this assumes that Docker has be installed locally).
+
+1) _mvn package_ to create the the war file.
+2) Build the docker image with the following command:
+> docker build -t davidsells/lcbo .
+3) Run the docker image with:
+> docker run -p 8080:8080 davidsells/lcbo
+
+The application will be running at the following URL:
+> http://localhost:8080/lcbo
